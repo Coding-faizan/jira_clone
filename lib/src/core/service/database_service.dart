@@ -28,7 +28,7 @@ class DatabaseService {
     await db.execute('''
       CREATE TABLE Admin(
         ${AdminFields.id} INTEGER PRIMARY KEY,
-        ${AdminFields.email} TEXT,
+        ${AdminFields.email} TEXT UNIQUE,
         ${AdminFields.password} TEXT
       )''');
 
