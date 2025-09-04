@@ -4,6 +4,7 @@ import 'package:jira_clone/main.dart';
 import 'package:jira_clone/src/features/auth/presentation/screens/forgot_password_screen.dart';
 import 'package:jira_clone/src/features/auth/presentation/screens/login_screen.dart';
 import 'package:jira_clone/src/features/auth/presentation/screens/password_reset_screen.dart';
+import 'package:jira_clone/src/features/profile/presentation/manage_engineers_screen.dart';
 import 'package:jira_clone/src/routing/app_route.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
@@ -33,6 +34,12 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) {
           final email = state.extra as String;
           return PasswordResetScreen(email: email);
+        },
+      ),
+      GoRoute(
+        path: AppRoute.manageEngineers,
+        builder: (context, state) {
+          return const ManageEngineersScreen();
         },
       ),
     ],

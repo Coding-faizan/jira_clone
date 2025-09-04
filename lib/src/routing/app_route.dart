@@ -3,4 +3,5 @@ class AppRoute {
   static const home = '/home';
   static const forgotPassword = '/forgot_password';
   static const resetPassword = '/reset_password';
+  static const manageEngineers = '/manage_engineers';
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jira_clone/src/domain/engineer.dart';
+import 'package:jira_clone/src/features/profile/domain/engineer.dart';
 import 'package:jira_clone/src/domain/sprint.dart';
 import 'package:jira_clone/src/domain/ticket.dart';
 import 'package:jira_clone/src/features/auth/domain/admin.dart';
