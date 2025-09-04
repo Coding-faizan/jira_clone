@@ -4,12 +4,14 @@ class CustomFormField extends StatelessWidget {
   final String label;
   final TextEditingController controller;
   final FormFieldValidator<String>? validator;
+  final bool obscureText;
 
   const CustomFormField({
     super.key,
     required this.label,
     required this.controller,
     this.validator,
+    this.obscureText = false,
   });
 
   @override
@@ -18,6 +20,7 @@ class CustomFormField extends StatelessWidget {
       decoration: InputDecoration(labelText: label),
       controller: controller,
       validator: validator,
+      obscureText: obscureText,
     );
   }
 }
