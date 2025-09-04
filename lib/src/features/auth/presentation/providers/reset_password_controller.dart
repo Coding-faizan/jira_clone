@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jira_clone/src/features/auth/data/auth_repository.dart';
-import 'package:jira_clone/src/features/presentation/providers/auth_state_controller.dart';
+import 'package:jira_clone/src/features/auth/presentation/providers/auth_state_controller.dart';
 
 class ResetPasswordController extends AsyncNotifier<void> {
   @override
