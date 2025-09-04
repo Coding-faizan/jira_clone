@@ -1,0 +1,6 @@
+class AppRoute {
+  static const login = '/login';
+  static const home = '/home';
+  static const forgotPassword = '/forgot_password';
+  static const resetPassword = '/reset_password';
+}
