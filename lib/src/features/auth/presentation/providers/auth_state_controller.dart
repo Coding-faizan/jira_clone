@@ -1,10 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jira_clone/src/features/auth/data/auth_repository.dart';
-import 'package:jira_clone/src/features/domain/admin.dart';
 
-class AuthStateController extends AsyncNotifier<Admin?> {
+class AuthStateController extends AsyncNotifier<int?> {
   @override
-  Future<Admin?> build() async {
+  Future<int?> build() async {
     return null;
   }
 

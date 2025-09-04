@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jira_clone/src/core/service/database_service.dart';
 import 'package:jira_clone/src/features/auth/data/auth_datasource.dart';
-import 'package:jira_clone/src/features/presentation/login_screen.dart';
 import 'package:jira_clone/src/routing/app_router.dart';
 
 void main() async {
