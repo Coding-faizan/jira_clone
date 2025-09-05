@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jira_clone/src/features/profile/presentation/profile_screen.dart';
 
 class MainDashboard extends StatefulWidget {
   const MainDashboard({super.key});
@@ -10,15 +11,12 @@ class MainDashboard extends StatefulWidget {
 class _MainDashboardState extends State<MainDashboard> {
   int currentIndex = 0;
 
-  final tabs = [
-    Center(child: Text('Home Tab')),
-    Center(child: Text('Profile Tab')),
-  ];
+  final tabs = [Center(child: Text('Home Tab')), ProfileScreen()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('')),
+      appBar: AppBar(title: Text('Mini-Jira')),
       body: tabs[currentIndex],
       bottomNavigationBar: NavigationBar(
         destinations: [

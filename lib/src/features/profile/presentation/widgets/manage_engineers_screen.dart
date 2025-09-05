@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jira_clone/src/features/profile/domain/engineer.dart';
-import 'package:jira_clone/src/features/profile/presentation/engineer_detail_dialog.dart';
+import 'package:jira_clone/src/features/profile/presentation/widgets/engineer_detail_dialog.dart';
 import 'package:jira_clone/src/features/profile/presentation/providers/engineer_detail_controller.dart';
 import 'package:jira_clone/src/features/profile/presentation/providers/engineers_count_state.dart';
 import 'package:jira_clone/src/features/profile/presentation/providers/get_engineers_provider.dart';

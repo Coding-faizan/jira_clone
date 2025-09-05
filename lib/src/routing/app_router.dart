@@ -5,7 +5,7 @@ import 'package:jira_clone/src/common_widgets/main_dashboard.dart';
 import 'package:jira_clone/src/features/auth/presentation/screens/forgot_password_screen.dart';
 import 'package:jira_clone/src/features/auth/presentation/screens/login_screen.dart';
 import 'package:jira_clone/src/features/auth/presentation/screens/password_reset_screen.dart';
-import 'package:jira_clone/src/features/profile/presentation/manage_engineers_screen.dart';
+import 'package:jira_clone/src/features/profile/presentation/widgets/manage_engineers_screen.dart';
 import 'package:jira_clone/src/routing/app_route.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
