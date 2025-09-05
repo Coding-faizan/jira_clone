@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jira_clone/src/features/profile/domain/engineer.dart';
 import 'package:jira_clone/src/domain/sprint.dart';
 import 'package:jira_clone/src/domain/ticket.dart';
@@ -62,3 +63,7 @@ class DatabaseService {
     debugPrint('Database tables created');
   }
 }
+
+final dataBaseProvider = Provider<Database>((ref) {
+  throw UnimplementedError();
+});

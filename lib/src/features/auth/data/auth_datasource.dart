@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:jira_clone/src/core/service/database_service.dart';
 import 'package:jira_clone/src/exceptions/app_exception.dart';
 import 'package:jira_clone/src/features/auth/domain/admin.dart';
 import 'package:sqflite/sqflite.dart';
@@ -61,5 +62,6 @@ class AuthDatasource {
 }
 
 final authDatasourceProvider = Provider<AuthDatasource>((ref) {
-  throw UnimplementedError('AuthDatasource not implemented');
+  final database = ref.watch(dataBaseProvider);
+  return AuthDatasource(database);
 });

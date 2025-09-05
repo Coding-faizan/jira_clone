@@ -1,5 +1,6 @@
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:jira_clone/src/core/service/database_service.dart';
 import 'package:jira_clone/src/features/profile/domain/engineer.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -54,6 +55,7 @@ class EngineerDataSource {
   }
 }
 
-final engineerDataSourceProvider = Provider<EngineerDataSource>(
-  (ref) => throw UnimplementedError(),
-);
+final engineerDataSourceProvider = Provider<EngineerDataSource>((ref) {
+  final database = ref.read(dataBaseProvider);
+  return EngineerDataSource(database: database);
+});

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jira_clone/src/core/service/database_service.dart';
-import 'package:jira_clone/src/features/auth/data/auth_datasource.dart';
-import 'package:jira_clone/src/features/profile/data/engineer_data_source.dart';
 import 'package:jira_clone/src/routing/app_route.dart';
 import 'package:jira_clone/src/routing/app_router.dart';
 import 'package:sqflite/sqflite.dart';
@@ -15,12 +13,7 @@ void main() async {
 
   runApp(
     ProviderScope(
-      overrides: [
-        authDatasourceProvider.overrideWithValue(AuthDatasource(database)),
-        engineerDataSourceProvider.overrideWithValue(
-          EngineerDataSource(database: database),
-        ),
-      ],
+      overrides: [dataBaseProvider.overrideWithValue(database)],
       child: const MainApp(),
     ),
   );
