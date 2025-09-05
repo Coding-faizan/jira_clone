@@ -13,7 +13,6 @@ class AuthStateController extends AsyncNotifier<int?> {
 
     state = AsyncValue.loading();
     state = await AsyncValue.guard(() => authRepository.login(email, password));
-    debugPrint('Logged in with admin ID: ${state.value}');
   }
 
   void logout() {

@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jira_clone/main.dart';
 import 'package:jira_clone/src/common_widgets/main_dashboard.dart';
 import 'package:jira_clone/src/features/auth/presentation/screens/forgot_password_screen.dart';
 import 'package:jira_clone/src/features/auth/presentation/screens/login_screen.dart';
@@ -12,12 +11,6 @@ final goRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: AppRoute.login,
     routes: [
-      GoRoute(
-        path: AppRoute.home,
-        builder: (context, state) {
-          return const HomeScreen();
-        },
-      ),
       GoRoute(
         path: AppRoute.login,
         builder: (context, state) {

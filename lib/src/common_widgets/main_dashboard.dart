@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jira_clone/src/features/profile/presentation/profile_screen.dart';
+import 'package:jira_clone/src/features/sprint/presentation/home_tab.dart';
 
 class MainDashboard extends StatefulWidget {
   const MainDashboard({super.key});
@@ -11,7 +12,7 @@ class MainDashboard extends StatefulWidget {
 class _MainDashboardState extends State<MainDashboard> {
   int currentIndex = 0;
 
-  final tabs = [Center(child: Text('Home Tab')), ProfileScreen()];
+  final tabs = [HomeTab(), ProfileScreen()];
 
   @override
   Widget build(BuildContext context) {

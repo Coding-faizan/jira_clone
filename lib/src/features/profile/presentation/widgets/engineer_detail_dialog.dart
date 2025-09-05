@@ -65,6 +65,7 @@ class _EngineerDetailDialogState extends ConsumerState<EngineerDetailDialog> {
             ),
             gapH8,
             if (ref.watch(developers).length < 4)
+              //todo: make them reusable
               ListTile(
                 horizontalTitleGap: 0,
                 title: const Text('Developer'),
@@ -98,6 +99,7 @@ class _EngineerDetailDialogState extends ConsumerState<EngineerDetailDialog> {
       actions: [
         TextButton(
           onPressed: () async {
+            //todo: refactor this
             Engineer? newEngineer = widget.engineer;
             if (isNewEngineer) {
               final adminId = ref
