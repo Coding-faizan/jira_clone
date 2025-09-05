@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jira_clone/src/features/profile/domain/engineer.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jira_clone/src/common_widgets/confirmation_dialog.dart';
 import 'package:jira_clone/src/features/profile/presentation/widgets/engineer_detail_dialog.dart';
 import 'package:jira_clone/src/features/profile/presentation/providers/engineer_detail_controller.dart';
 import 'package:jira_clone/src/features/profile/presentation/providers/engineers_count_state.dart';
@@ -71,6 +72,15 @@ class ManageEngineersScreen extends ConsumerWidget {
                                       builder: (context) {
                                         return ConfirmationDialog(
                                           engineer: engineer,
+                                          onConfirmation: () {
+                                            ref
+                                                .read(
+                                                  engineerDetailControllerProvider
+                                                      .notifier,
+                                                )
+                                                .deleteEngineer(engineer.id!);
+                                            context.pop();
+                                          },
                                         );
                                       },
                                     );
@@ -88,37 +98,6 @@ class ManageEngineersScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error: $error')),
       ),
-    );
-  }
-}
-
-class ConfirmationDialog extends ConsumerWidget {
-  const ConfirmationDialog({super.key, required this.engineer});
-
-  final Engineer engineer;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return AlertDialog(
-      title: const Text('Delete Engineer'),
-      content: const Text('Are you sure you want to delete this engineer?'),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: const Text('Cancel'),
-        ),
-        TextButton(
-          onPressed: () {
-            ref
-                .read(engineerDetailControllerProvider.notifier)
-                .deleteEngineer(engineer.id!);
-            Navigator.of(context).pop();
-          },
-          child: const Text('Delete'),
-        ),
-      ],
     );
   }
 }
