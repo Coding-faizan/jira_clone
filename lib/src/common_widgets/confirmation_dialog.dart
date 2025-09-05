@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jira_clone/src/features/profile/domain/engineer.dart';
+import 'package:go_router/go_router.dart';
 
 class ConfirmationDialog extends ConsumerWidget {
   const ConfirmationDialog({
     super.key,
-    required this.engineer,
     required this.onConfirmation,
+    required this.title,
+    required this.content,
   });
 
-  final Engineer engineer;
   final VoidCallback onConfirmation;
+  final String title;
+  final String content;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AlertDialog(
-      title: const Text('Delete Engineer'),
-      content: const Text('Are you sure you want to delete this engineer?'),
+      title: Text(title),
+      content: Text(content),
       actions: [
         TextButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            context.pop();
           },
           child: const Text('Cancel'),
         ),

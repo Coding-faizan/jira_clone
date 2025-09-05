@@ -71,7 +71,9 @@ class ManageEngineersScreen extends ConsumerWidget {
                                       context: context,
                                       builder: (context) {
                                         return ConfirmationDialog(
-                                          engineer: engineer,
+                                          title: 'Delete Engineer',
+                                          content:
+                                              'Are you sure you want to delete this engineer?',
                                           onConfirmation: () {
                                             ref
                                                 .read(
