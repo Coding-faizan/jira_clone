@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jira_clone/src/features/profile/data/engineer_repo.dart';
 import 'package:jira_clone/src/features/profile/domain/engineer.dart';
-import 'package:jira_clone/src/features/profile/presentation/providers/engineers_count_state.dart';
 import 'package:jira_clone/src/features/profile/presentation/providers/get_engineers_provider.dart';
 
 class EngineerDetailController extends AsyncNotifier<void> {
@@ -11,14 +10,7 @@ class EngineerDetailController extends AsyncNotifier<void> {
   Future<void> saveEngineerDetails(Engineer engineer, bool isNew) async {
     state = const AsyncValue.loading();
     final engineerRepository = ref.read(engineerRepoProvider);
-    final engineerRoleLimit = ref.read(limitReachedProvider);
-    if (engineerRoleLimit == engineer.role && isNew) {
-      state = AsyncValue.error(
-        'Cannot add more than 4 engineers with the role ${engineer.role}',
-        StackTrace.current,
-      );
-      return;
-    }
+
     if (isNew) {
       state = await AsyncValue.guard(
         () => engineerRepository.createEngineerProfile(engineer),

@@ -6,6 +6,7 @@ import 'package:jira_clone/src/constants/app_sizes.dart';
 import 'package:jira_clone/src/features/auth/presentation/providers/auth_state_controller.dart';
 import 'package:jira_clone/src/features/profile/domain/engineer.dart';
 import 'package:jira_clone/src/features/profile/presentation/providers/engineer_detail_controller.dart';
+import 'package:jira_clone/src/features/profile/presentation/providers/engineers_count_state.dart';
 import 'package:jira_clone/src/utils/async_value_ui.dart';
 import 'package:jira_clone/src/utils/validators.dart';
 
@@ -63,32 +64,34 @@ class _EngineerDetailDialogState extends ConsumerState<EngineerDetailDialog> {
               validator: Validators.validateName,
             ),
             gapH8,
-            ListTile(
-              horizontalTitleGap: 0,
-              title: const Text('Developer'),
-              leading: Radio(
-                value: 'developer',
-                groupValue: engineerRole,
-                onChanged: (value) {
-                  setState(() {
-                    engineerRole = value!;
-                  });
-                },
+            if (ref.watch(developers).length < 4)
+              ListTile(
+                horizontalTitleGap: 0,
+                title: const Text('Developer'),
+                leading: Radio(
+                  value: 'developer',
+                  groupValue: engineerRole,
+                  onChanged: (value) {
+                    setState(() {
+                      engineerRole = value!;
+                    });
+                  },
+                ),
               ),
-            ),
-            ListTile(
-              horizontalTitleGap: 0,
-              title: const Text('Tester'),
-              leading: Radio(
-                value: 'tester',
-                groupValue: engineerRole,
-                onChanged: (value) {
-                  setState(() {
-                    engineerRole = value!;
-                  });
-                },
+            if (ref.watch(testers).length < 4)
+              ListTile(
+                horizontalTitleGap: 0,
+                title: const Text('Tester'),
+                leading: Radio(
+                  value: 'tester',
+                  groupValue: engineerRole,
+                  onChanged: (value) {
+                    setState(() {
+                      engineerRole = value!;
+                    });
+                  },
+                ),
               ),
-            ),
           ],
         ),
       ),
