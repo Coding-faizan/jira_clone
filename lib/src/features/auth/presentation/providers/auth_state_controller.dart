@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jira_clone/src/features/auth/data/auth_repository.dart';
 
@@ -12,6 +13,7 @@ class AuthStateController extends AsyncNotifier<int?> {
 
     state = AsyncValue.loading();
     state = await AsyncValue.guard(() => authRepository.login(email, password));
+    debugPrint('Logged in with admin ID: ${state.value}');
   }
 
   void logout() {

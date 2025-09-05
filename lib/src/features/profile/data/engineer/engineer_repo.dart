@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jira_clone/src/features/profile/data/engineer_data_source.dart';
+import 'package:jira_clone/src/features/profile/data/engineer/engineer_data_source.dart';
 import 'package:jira_clone/src/features/profile/domain/engineer.dart';
 
 class EngineerRepo {
