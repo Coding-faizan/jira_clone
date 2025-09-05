@@ -78,7 +78,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                         await authController.login(email, password);
                         if (context.mounted &&
                             !ref.read(authStateControllerProvider).hasError) {
-                          context.go(AppRoute.home);
+                          context.go(AppRoute.mainDashboard);
                         }
                       }
                     },
