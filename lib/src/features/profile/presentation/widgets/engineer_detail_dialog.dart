@@ -64,7 +64,7 @@ class _EngineerDetailDialogState extends ConsumerState<EngineerDetailDialog> {
               validator: Validators.validateName,
             ),
             gapH8,
-            if (ref.watch(developers).length < 4)
+            if (ref.watch(developersProvider).length < 4)
               //todo: make them reusable
               ListTile(
                 horizontalTitleGap: 0,
@@ -79,7 +79,7 @@ class _EngineerDetailDialogState extends ConsumerState<EngineerDetailDialog> {
                   },
                 ),
               ),
-            if (ref.watch(testers).length < 4)
+            if (ref.watch(testersProvider).length < 4)
               ListTile(
                 horizontalTitleGap: 0,
                 title: const Text('Tester'),

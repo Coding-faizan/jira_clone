@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jira_clone/src/core/service/database_service.dart';
 import 'package:jira_clone/src/features/ticket/domain/ticket.dart';
@@ -8,8 +9,13 @@ class TicketDataSource {
 
   TicketDataSource({required Database database}) : _database = database;
 
-  Future<List<Ticket>> getTickets() async {
-    final List<Map<String, dynamic>> maps = await _database.query('Ticket');
+  Future<List<Ticket>> getTickets(int sprintId) async {
+    final List<Map<String, dynamic>> maps = await _database.query(
+      'Ticket',
+      where: '${TicketFields.sprintId} = ?',
+      whereArgs: [sprintId],
+    );
+    debugPrint('Fetched Tickets: $maps');
     return maps.map((map) => Ticket.fromMap(map)).toList();
   }
 

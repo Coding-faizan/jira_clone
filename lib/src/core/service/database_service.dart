@@ -57,6 +57,9 @@ class DatabaseService {
         ${TicketFields.title} TEXT,
         ${TicketFields.description} TEXT,
         ${TicketFields.sprintId} INTEGER,
+        ${TicketFields.developer} TEXT,
+        ${TicketFields.tester} TEXT,
+        ${TicketFields.status} TEXT,
         FOREIGN KEY (${TicketFields.sprintId}) REFERENCES Sprint(${TicketFields.sprintId}) ON DELETE CASCADE
       )
       ''');

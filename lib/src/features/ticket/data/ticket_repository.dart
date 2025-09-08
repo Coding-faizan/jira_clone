@@ -8,8 +8,8 @@ class TicketRepository {
   TicketRepository({required TicketDataSource dataSource})
     : _dataSource = dataSource;
 
-  Future<List<Ticket>> getTickets() async {
-    return await _dataSource.getTickets();
+  Future<List<Ticket>> getTickets(int sprintId) async {
+    return await _dataSource.getTickets(sprintId);
   }
 
   Future<void> insertTicket(Ticket ticket) async {
