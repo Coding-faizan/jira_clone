@@ -11,16 +11,12 @@ final getSprintsProvider = FutureProvider<List<Sprint>>((ref) async {
 
 final activeSprintsProvider = Provider<List<Sprint>>((ref) {
   final sprints = ref.watch(getSprintsProvider).asData?.value ?? [];
-  final activeSprints = sprints
-      .where((sprint) => sprint.status == 'active')
-      .toList();
+  final activeSprints = sprints.where((sprint) => sprint.isActive).toList();
   return activeSprints;
 });
 
 final completedSprintsProvider = Provider<List<Sprint>>((ref) {
   final sprints = ref.watch(getSprintsProvider).asData?.value ?? [];
-  final completedSprints = sprints
-      .where((sprint) => sprint.status == 'completed')
-      .toList();
+  final completedSprints = sprints.where((sprint) => !sprint.isActive).toList();
   return completedSprints;
 });

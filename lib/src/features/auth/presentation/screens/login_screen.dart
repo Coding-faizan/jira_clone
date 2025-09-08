@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -93,6 +94,16 @@ class _LoginFormState extends ConsumerState<LoginForm> {
               },
               child: Text('Forgot Password?'),
             ),
+            gapH48,
+            if (kDebugMode) ...{
+              ListTile(
+                title: Text('Test User Credentials'),
+                onTap: () async {
+                  await authController.login('t@g.com', 'test12');
+                  if (context.mounted) context.go(AppRoute.mainDashboard);
+                },
+              ),
+            },
           ],
         ),
       ),

@@ -61,7 +61,7 @@ class _PasswordResetScreenState extends ConsumerState<PasswordResetScreen> {
                               .read(resetPasswordControllerProvider.notifier)
                               .resetPassword(widget.email, newPassword);
                           if (context.mounted) {
-                            context.go(AppRoute.home);
+                            context.go(AppRoute.mainDashboard);
                           }
                         }
                       },

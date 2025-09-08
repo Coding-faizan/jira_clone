@@ -1,30 +1,34 @@
 class Sprint {
   int? id;
   String title;
-  String status;
+  bool isActive;
   DateTime startDate;
   DateTime endDate;
+  int adminId;
   Sprint({
     this.id,
     required this.title,
-    required this.status,
+    required this.isActive,
     required this.startDate,
     required this.endDate,
+    required this.adminId,
   });
 
   Sprint copyWith({
     int? id,
     String? title,
-    String? status,
+    bool? isActive,
     DateTime? startDate,
     DateTime? endDate,
+    int? adminId,
   }) {
     return Sprint(
       id: id ?? this.id,
       title: title ?? this.title,
-      status: status ?? this.status,
+      isActive: isActive ?? this.isActive,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
+      adminId: adminId ?? this.adminId,
     );
   }
 
@@ -32,9 +36,10 @@ class Sprint {
     return <String, dynamic>{
       SprintFields.id: id,
       SprintFields.title: title,
-      SprintFields.status: status,
+      SprintFields.isActive: isActive ? 1 : 0,
       SprintFields.startDate: startDate.toIso8601String(),
       SprintFields.endDate: endDate.toIso8601String(),
+      SprintFields.adminId: adminId,
     };
   }
 
@@ -42,9 +47,10 @@ class Sprint {
     return Sprint(
       id: map[SprintFields.id] != null ? map[SprintFields.id] as int : null,
       title: map[SprintFields.title] as String,
-      status: map[SprintFields.status] as String,
+      isActive: map[SprintFields.isActive] == 1,
       startDate: DateTime.parse(map[SprintFields.startDate] as String),
       endDate: DateTime.parse(map[SprintFields.endDate] as String),
+      adminId: map[SprintFields.adminId] as int,
     );
   }
 }
@@ -53,7 +59,7 @@ class SprintFields {
   static const tableName = 'Sprint';
   static const id = 'id';
   static const title = 'title';
-  static const status = 'status';
+  static const isActive = 'isActive';
   static const startDate = 'startDate';
   static const endDate = 'endDate';
   static const adminId = 'admin_id';

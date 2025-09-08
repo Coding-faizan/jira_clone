@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jira_clone/src/features/profile/domain/engineer.dart';
 import 'package:jira_clone/src/features/sprint/domain/sprint.dart';
-import 'package:jira_clone/src/domain/ticket.dart';
+import 'package:jira_clone/src/features/ticket/domain/ticket.dart';
 import 'package:jira_clone/src/features/auth/domain/admin.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -45,6 +45,7 @@ class DatabaseService {
       CREATE TABLE Sprint (
         ${SprintFields.id} INTEGER PRIMARY KEY,
         ${SprintFields.title} TEXT,
+        ${SprintFields.isActive} INTEGER,
         ${SprintFields.startDate} TEXT,
         ${SprintFields.endDate} TEXT,
         ${SprintFields.adminId} INTEGER,

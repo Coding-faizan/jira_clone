@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jira_clone/src/features/profile/presentation/profile_screen.dart';
 import 'package:jira_clone/src/features/sprint/presentation/home_tab.dart';
+import 'package:jira_clone/src/features/ticket/presentation/tickets_tab.dart';
 
 class MainDashboard extends StatefulWidget {
   const MainDashboard({super.key});
@@ -12,7 +13,7 @@ class MainDashboard extends StatefulWidget {
 class _MainDashboardState extends State<MainDashboard> {
   int currentIndex = 0;
 
-  final tabs = [HomeTab(), ProfileScreen()];
+  final tabs = [HomeTab(), TicketsTab(), ProfileScreen()];
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,7 @@ class _MainDashboardState extends State<MainDashboard> {
       bottomNavigationBar: NavigationBar(
         destinations: [
           NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+          NavigationDestination(icon: Icon(Icons.list), label: 'Tickets'),
           NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
         ],
         onDestinationSelected: (value) => setState(() {

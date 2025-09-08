@@ -9,16 +9,27 @@ class SprintDataSource {
   SprintDataSource({required Database database}) : _database = database;
 
   Future<List<Sprint>> getSprints(int adminId) async {
-    final List<Map<String, dynamic>> maps = await _database.query(
-      SprintFields.tableName,
-      where: '${SprintFields.adminId} = ?',
-      whereArgs: [adminId],
-    );
-    return maps.map((map) => Sprint.fromMap(map)).toList();
+    try {
+      final List<Map<String, dynamic>> maps = await _database.query(
+        SprintFields.tableName,
+        where: '${SprintFields.adminId} = ?',
+        whereArgs: [adminId],
+      );
+      print('Fetched sprints: $maps');
+      return maps.map((map) => Sprint.fromMap(map)).toList();
+    } catch (e) {
+      print('Error fetching sprints: $e');
+      return [];
+    }
   }
 
   Future<void> insertSprint(Sprint sprint) async {
-    await _database.insert(SprintFields.tableName, sprint.toMap());
+    try {
+      final mappedSprint = sprint.toMap();
+      await _database.insert(SprintFields.tableName, mappedSprint);
+    } catch (e) {
+      print('Error inserting sprint: $e');
+    }
   }
 
   Future<void> updateSprint(Sprint sprint) async {

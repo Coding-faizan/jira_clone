@@ -12,7 +12,7 @@ class SprintRepository {
     return await _dataSource.getSprints(adminId);
   }
 
-  Future<void> insertSprint(Sprint sprint) async {
+  Future<void> createSprint(Sprint sprint) async {
     await _dataSource.insertSprint(sprint);
   }
 

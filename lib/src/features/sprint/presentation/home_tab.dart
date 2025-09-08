@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jira_clone/src/features/sprint/presentation/active_tab.dart';
+import 'package:jira_clone/src/features/sprint/presentation/active_sprints_tab.dart';
 import 'package:jira_clone/src/features/sprint/presentation/providers/get_sprints.dart';
 
 class HomeTab extends ConsumerWidget {
