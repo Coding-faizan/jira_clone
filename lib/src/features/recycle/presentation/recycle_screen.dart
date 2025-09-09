@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:jira_clone/src/common_widgets/delete_button.dart';
 import 'package:jira_clone/src/features/recycle/presentation/recycle_controller.dart';
 
 class RecycleScreen extends ConsumerWidget {
@@ -24,13 +25,12 @@ class RecycleScreen extends ConsumerWidget {
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      IconButton(
+                      DeleteButton(
                         onPressed: () {
                           ref
                               .read(recycleControllerProvider.notifier)
                               .removeItem(item);
                         },
-                        icon: Icon(Icons.delete),
                       ),
                       IconButton(
                         icon: Icon(Icons.restore),
