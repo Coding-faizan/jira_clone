@@ -10,6 +10,7 @@ class DatePickerField extends StatelessWidget {
     required this.firstDate,
     required this.lastDate,
     required this.onDateSelected,
+    this.validator,
   });
 
   final TextEditingController controller;
@@ -18,11 +19,13 @@ class DatePickerField extends StatelessWidget {
   final DateTime firstDate;
   final DateTime lastDate;
   final ValueChanged<DateTime> onDateSelected;
+  final FormFieldValidator? validator;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: controller,
+      validator: validator,
       readOnly: true,
       decoration: InputDecoration(
         icon: Icon(Icons.calendar_today),
