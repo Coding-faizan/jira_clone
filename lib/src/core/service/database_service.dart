@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:jira_clone/src/domain/engineer.dart';
-import 'package:jira_clone/src/domain/sprint.dart';
-import 'package:jira_clone/src/domain/ticket.dart';
-import 'package:jira_clone/src/features/domain/admin.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:jira_clone/src/features/profile/domain/engineer.dart';
+import 'package:jira_clone/src/features/sprint/domain/sprint.dart';
+import 'package:jira_clone/src/features/ticket/domain/ticket.dart';
+import 'package:jira_clone/src/features/auth/domain/admin.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -38,12 +39,14 @@ class DatabaseService {
         ${EngineerFields.name} TEXT,
         ${EngineerFields.role} TEXT,
         ${EngineerFields.adminId} INTEGER,
+        ${EngineerFields.isTicketAssigned} INTEGER,
         FOREIGN KEY (${EngineerFields.adminId}) REFERENCES Admin(${EngineerFields.adminId}) ON DELETE CASCADE
       )''');
     await db.execute('''
       CREATE TABLE Sprint (
         ${SprintFields.id} INTEGER PRIMARY KEY,
         ${SprintFields.title} TEXT,
+        ${SprintFields.isActive} INTEGER,
         ${SprintFields.startDate} TEXT,
         ${SprintFields.endDate} TEXT,
         ${SprintFields.adminId} INTEGER,
@@ -55,6 +58,9 @@ class DatabaseService {
         ${TicketFields.title} TEXT,
         ${TicketFields.description} TEXT,
         ${TicketFields.sprintId} INTEGER,
+        ${TicketFields.developer} TEXT,
+        ${TicketFields.tester} TEXT,
+        ${TicketFields.status} TEXT,
         FOREIGN KEY (${TicketFields.sprintId}) REFERENCES Sprint(${TicketFields.sprintId}) ON DELETE CASCADE
       )
       ''');
@@ -62,3 +68,7 @@ class DatabaseService {
     debugPrint('Database tables created');
   }
 }
+
+final dataBaseProvider = Provider<Database>((ref) {
+  throw UnimplementedError();
+});

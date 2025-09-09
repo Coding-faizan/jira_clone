@@ -1,0 +1,106 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jira_clone/src/common_widgets/confirmation_dialog.dart';
+import 'package:jira_clone/src/common_widgets/delete_button.dart';
+import 'package:jira_clone/src/common_widgets/edit_button.dart';
+import 'package:jira_clone/src/features/profile/presentation/widgets/engineer_detail_dialog.dart';
+import 'package:jira_clone/src/features/profile/presentation/providers/engineers_role_based_provider.dart';
+import 'package:jira_clone/src/features/profile/presentation/providers/get_engineers_provider.dart';
+
+class ManageEngineersScreen extends ConsumerWidget {
+  const ManageEngineersScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final engineersAsyncValue = ref.watch(getEngineersProvider);
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Manage Engineers')),
+      floatingActionButton:
+          ref.watch(developersProvider).length +
+                  ref.watch(testersProvider).length ==
+              5
+          ? null
+          : FloatingActionButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return EngineerDetailDialog();
+                  },
+                );
+              },
+              child: const Icon(Icons.add),
+            ),
+      body: engineersAsyncValue.when(
+        data: (engineers) {
+          return engineers.isEmpty
+              ? Center(child: Text('No engineers to show'))
+              : Column(
+                  children: [
+                    Text('Engineers: ${engineers.length}/5'),
+                    Expanded(
+                      child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: engineers.length,
+                        itemBuilder: (context, index) {
+                          final engineer = engineers[index];
+                          return ListTile(
+                            title: Text(engineer.name),
+                            subtitle: Text(engineer.role),
+                            trailing: engineer.isTicketAssigned
+                                ? null
+                                : Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      EditButton(
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return EngineerDetailDialog(
+                                                engineer: engineer,
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                      DeleteButton(
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return ConfirmationDialog(
+                                                title: 'Delete Engineer',
+                                                content:
+                                                    'Are you sure you want to delete this engineer?',
+                                                onConfirmation: () {
+                                                  ref
+                                                      .read(
+                                                        getEngineersProvider
+                                                            .notifier,
+                                                      )
+                                                      .removeEngineer(engineer);
+                                                  context.pop();
+                                                },
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                );
+        },
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error: $error')),
+      ),
+    );
+  }
+}

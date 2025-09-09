@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:jira_clone/src/core/service/database_service.dart';
 import 'package:jira_clone/src/exceptions/app_exception.dart';
-import 'package:jira_clone/src/features/domain/admin.dart';
+import 'package:jira_clone/src/features/auth/domain/admin.dart';
 import 'package:sqflite/sqflite.dart';
 
 class AuthDatasource {
@@ -9,18 +10,16 @@ class AuthDatasource {
 
   AuthDatasource(this.database);
 
-  Future<Admin> login(String email, String password) async {
+  Future<int> login(String email, String password) async {
     final admin = await _getCurrentAdmin(email);
     if (admin != null) {
       if (admin.password != password) {
         throw WrongPasswordException();
       }
       debugPrint('Logged in as admin with id: ${admin.id}');
-      return admin;
+      return admin.id!;
     } else {
-      int newAdminId = await _register(email, password);
-      debugPrint('Registered new admin with id: $newAdminId');
-      return await _getCurrentAdmin(email) as Admin;
+      return await _register(email, password);
     }
   }
 
@@ -63,5 +62,6 @@ class AuthDatasource {
 }
 
 final authDatasourceProvider = Provider<AuthDatasource>((ref) {
-  throw UnimplementedError('AuthDatasource not implemented');
+  final database = ref.watch(dataBaseProvider);
+  return AuthDatasource(database);
 });

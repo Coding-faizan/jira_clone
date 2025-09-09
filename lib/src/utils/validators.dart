@@ -33,4 +33,25 @@ class Validators {
     }
     return null;
   }
+
+  static String? validateName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Name is required';
+    }
+    if (value.length < 5) {
+      return 'Name must be at least 5 characters long';
+    }
+    return null;
+  }
+
+  static String? validateTitle(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Title is required';
+    }
+    if (value.length < 5) {
+      return 'Title must be at least 5 characters long';
+    }
+
+    return null;
+  }
 }

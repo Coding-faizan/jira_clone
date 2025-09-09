@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jira_clone/src/common_widgets/custom_form_field.dart';
 import 'package:jira_clone/src/constants/app_sizes.dart';
-import 'package:jira_clone/src/features/presentation/providers/reset_password_controller.dart';
+import 'package:jira_clone/src/features/auth/presentation/providers/reset_password_controller.dart';
 import 'package:jira_clone/src/routing/app_route.dart';
 import 'package:jira_clone/src/utils/validators.dart';
 
@@ -61,7 +61,7 @@ class _PasswordResetScreenState extends ConsumerState<PasswordResetScreen> {
                               .read(resetPasswordControllerProvider.notifier)
                               .resetPassword(widget.email, newPassword);
                           if (context.mounted) {
-                            context.go(AppRoute.home);
+                            context.go(AppRoute.mainDashboard);
                           }
                         }
                       },
