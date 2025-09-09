@@ -98,7 +98,7 @@ class _SprintDetailDialogState extends ConsumerState<SprintDetailDialog> {
               Sprint sprint;
               if (isNewSprint) {
                 sprint = Sprint(
-                  title: 'title',
+                  title: title,
                   isActive: true,
                   startDate: startDate,
                   endDate: endDate,

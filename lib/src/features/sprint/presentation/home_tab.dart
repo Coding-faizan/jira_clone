@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jira_clone/src/features/sprint/presentation/active_sprints_tab.dart';
+import 'package:jira_clone/src/features/sprint/presentation/completed_sprint_tab.dart';
 import 'package:jira_clone/src/features/sprint/presentation/providers/get_sprints.dart';
 
 class HomeTab extends ConsumerWidget {
@@ -23,10 +24,7 @@ class HomeTab extends ConsumerWidget {
               ),
               Expanded(
                 child: TabBarView(
-                  children: [
-                    ActiveSprintsTab(),
-                    Center(child: Text('Content for Completed Tab')),
-                  ],
+                  children: [ActiveSprintsTab(), CompletedSprintTab()],
                 ),
               ),
             ],
