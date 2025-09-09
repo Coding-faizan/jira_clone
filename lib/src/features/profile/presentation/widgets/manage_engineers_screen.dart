@@ -5,7 +5,7 @@ import 'package:jira_clone/src/common_widgets/confirmation_dialog.dart';
 import 'package:jira_clone/src/common_widgets/delete_button.dart';
 import 'package:jira_clone/src/common_widgets/edit_button.dart';
 import 'package:jira_clone/src/features/profile/presentation/widgets/engineer_detail_dialog.dart';
-import 'package:jira_clone/src/features/profile/presentation/providers/engineers_count_state.dart';
+import 'package:jira_clone/src/features/profile/presentation/providers/engineers_role_based_provider.dart';
 import 'package:jira_clone/src/features/profile/presentation/providers/get_engineers_provider.dart';
 
 class ManageEngineersScreen extends ConsumerWidget {

@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jira_clone/src/common_widgets/custom_form_field.dart';
 import 'package:jira_clone/src/constants/app_sizes.dart';
-import 'package:jira_clone/src/features/profile/presentation/providers/engineers_count_state.dart';
+import 'package:jira_clone/src/features/profile/data/engineer/engineer_repo.dart';
+import 'package:jira_clone/src/features/profile/domain/engineer.dart';
+import 'package:jira_clone/src/features/profile/presentation/providers/engineers_role_based_provider.dart';
 import 'package:jira_clone/src/features/ticket/domain/ticket.dart';
 import 'package:jira_clone/src/features/ticket/presentation/provider/ticket_detail_controller.dart';
 import 'package:jira_clone/src/utils/validators.dart';
@@ -20,8 +22,8 @@ class _TicketDetailDialogState extends ConsumerState<TicketDetailDialog> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   TicketStatus _status = TicketStatus.toDo;
-  String _selectedDeveloper = '';
-  String _selectedTester = '';
+  Engineer? _selectedDeveloper;
+  Engineer? _selectedTester;
 
   String engineerRole = '';
 
@@ -75,34 +77,30 @@ class _TicketDetailDialogState extends ConsumerState<TicketDetailDialog> {
               maxLength: 100,
             ),
             gapH16,
-            DropdownButtonFormField(
-              value: _selectedDeveloper.isEmpty ? null : _selectedDeveloper,
+            DropdownButtonFormField<Engineer>(
+              value: _selectedDeveloper,
               decoration: const InputDecoration(
                 labelText: 'Assign developer',
                 border: OutlineInputBorder(),
               ),
               items: developers
-                  .map(
-                    (d) => DropdownMenuItem(value: d.name, child: Text(d.name)),
-                  )
+                  .map((d) => DropdownMenuItem(value: d, child: Text(d.name)))
                   .toList(),
               validator: (value) =>
                   value == null ? 'Please select a developer' : null,
               onChanged: (value) {
-                _selectedDeveloper = value!;
+                _selectedDeveloper = value;
               },
             ),
             gapH16,
-            DropdownButtonFormField(
-              value: _selectedTester.isEmpty ? null : _selectedTester,
+            DropdownButtonFormField<Engineer>(
+              value: _selectedTester,
               decoration: InputDecoration(
                 labelText: 'Assign tester',
                 border: OutlineInputBorder(),
               ),
               items: testers
-                  .map(
-                    (t) => DropdownMenuItem(value: t.name, child: Text(t.name)),
-                  )
+                  .map((t) => DropdownMenuItem(value: t, child: Text(t.name)))
                   .toList(),
               validator: (value) =>
                   value == null ? 'Please select a tester' : null,
@@ -112,7 +110,7 @@ class _TicketDetailDialogState extends ConsumerState<TicketDetailDialog> {
             ),
             gapH16,
             if (!isNewTicket)
-              DropdownButtonFormField(
+              DropdownButtonFormField<TicketStatus>(
                 value: _status,
                 items: TicketStatus.values
                     .map(
@@ -141,8 +139,8 @@ class _TicketDetailDialogState extends ConsumerState<TicketDetailDialog> {
                   title: ticketTitle,
                   description: ticketDescription,
                   status: TicketStatus.toDo,
-                  developer: _selectedDeveloper,
-                  tester: _selectedTester,
+                  developer: _selectedDeveloper!,
+                  tester: _selectedTester!,
                   sprintId: widget.sprintId,
                 );
               } else {
@@ -160,6 +158,8 @@ class _TicketDetailDialogState extends ConsumerState<TicketDetailDialog> {
               await ticketDetailController.saveTicketDetails(
                 ticket,
                 isNewTicket,
+                prevDev: isNewTicket ? null : widget.ticket!.developer,
+                prevTester: isNewTicket ? null : widget.ticket!.tester,
               );
               if (context.mounted) {
                 context.pop();

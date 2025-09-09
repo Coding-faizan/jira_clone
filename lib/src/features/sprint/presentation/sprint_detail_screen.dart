@@ -5,7 +5,7 @@ import 'package:jira_clone/src/common_widgets/alert_dialogs.dart';
 import 'package:jira_clone/src/common_widgets/confirmation_dialog.dart';
 import 'package:jira_clone/src/common_widgets/delete_button.dart';
 import 'package:jira_clone/src/common_widgets/edit_button.dart';
-import 'package:jira_clone/src/features/profile/presentation/providers/engineers_count_state.dart';
+import 'package:jira_clone/src/features/profile/presentation/providers/engineers_role_based_provider.dart';
 import 'package:jira_clone/src/features/sprint/domain/sprint.dart';
 import 'package:jira_clone/src/features/sprint/presentation/providers/sprint_detail_controller.dart';
 import 'package:jira_clone/src/features/sprint/presentation/sprint_detail_dialog.dart';
@@ -100,7 +100,7 @@ class SprintDetailScreen extends ConsumerWidget {
                                           ticketDetailControllerProvider
                                               .notifier,
                                         )
-                                        .deleteTicket(ticket.id!);
+                                        .deleteTicket(ticket);
                                     context.pop();
                                   },
                                   title: 'Delete Ticket',

@@ -6,7 +6,7 @@ import 'package:jira_clone/src/constants/app_sizes.dart';
 import 'package:jira_clone/src/features/auth/presentation/providers/auth_state_controller.dart';
 import 'package:jira_clone/src/features/profile/domain/engineer.dart';
 import 'package:jira_clone/src/features/profile/presentation/providers/engineer_detail_controller.dart';
-import 'package:jira_clone/src/features/profile/presentation/providers/engineers_count_state.dart';
+import 'package:jira_clone/src/features/profile/presentation/providers/engineers_role_based_provider.dart';
 import 'package:jira_clone/src/utils/async_value_ui.dart';
 import 'package:jira_clone/src/utils/validators.dart';
 
@@ -111,6 +111,7 @@ class _EngineerDetailDialogState extends ConsumerState<EngineerDetailDialog> {
                 name: engineerName,
                 role: engineerRole,
                 adminId: adminId,
+                isTicketAssigned: false,
               );
             } else {
               newEngineer = newEngineer!.copyWith(

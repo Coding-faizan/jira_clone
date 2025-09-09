@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jira_clone/src/features/profile/data/engineer/engineer_repo.dart';
 import 'package:jira_clone/src/features/profile/domain/engineer.dart';
 import 'package:jira_clone/src/features/profile/presentation/providers/get_engineers_provider.dart';
-import 'package:jira_clone/src/features/recycle/presentation/recycle_controller.dart';
 
 class EngineerDetailController extends AsyncNotifier<void> {
   @override
@@ -26,15 +25,27 @@ class EngineerDetailController extends AsyncNotifier<void> {
   }
 
   Future<void> deleteEngineer(Engineer engineer) async {
-    // state = const AsyncValue.loading();
-    // final engineerRepository = ref.read(engineerRepoProvider);
-    // state = await AsyncValue.guard(
-    //   () => engineerRepository.deleteEngineerProfile(engineerId),
-    // );
+    state = const AsyncValue.loading();
+    final engineerRepository = ref.read(engineerRepoProvider);
+    state = await AsyncValue.guard(
+      () => engineerRepository.deleteEngineerProfile(engineer.id!),
+    );
 
-    // ref.invalidate(getEngineersProvider);
-    final recycleController = ref.read(recycleControllerProvider.notifier);
-    recycleController.addItem(engineer, engineer.name);
+    ref.invalidate(getEngineersProvider);
+    // final recycleController = ref.read(recycleControllerProvider.notifier);
+    // recycleController.addItem(engineer, engineer.name);
+  }
+
+  Future<void> toggleTicketAssignment(Engineer engineer) async {
+    state = const AsyncValue.loading();
+    final engineerRepository = ref.read(engineerRepoProvider);
+    state = await AsyncValue.guard(
+      () => engineerRepository.updateEngineerProfile(
+        engineer.copyWith(isTicketAssigned: !engineer.isTicketAssigned),
+      ),
+    );
+
+    //ref.refresh(getEngineersProvider);
   }
 }
 

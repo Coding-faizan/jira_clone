@@ -1,10 +1,12 @@
+import 'package:jira_clone/src/features/profile/domain/engineer.dart';
+
 class Ticket {
   int? id;
   String title;
   String description;
   TicketStatus status;
-  String developer;
-  String tester;
+  Engineer developer;
+  Engineer tester;
   int sprintId;
   Ticket({
     this.id,
@@ -21,8 +23,8 @@ class Ticket {
     String? title,
     String? description,
     TicketStatus? status,
-    String? developer,
-    String? tester,
+    Engineer? developer,
+    Engineer? tester,
     int? sprintId,
   }) {
     return Ticket(
@@ -42,8 +44,8 @@ class Ticket {
       TicketFields.title: title,
       TicketFields.description: description,
       TicketFields.status: status.name,
-      TicketFields.developer: developer,
-      TicketFields.tester: tester,
+      TicketFields.developer: developer.toJson(),
+      TicketFields.tester: tester.toJson(),
       TicketFields.sprintId: sprintId,
     };
   }
@@ -56,8 +58,8 @@ class Ticket {
       status: TicketStatus.values.firstWhere(
         (e) => e.name == map[TicketFields.status],
       ),
-      developer: map[TicketFields.developer] as String,
-      tester: map[TicketFields.tester] as String,
+      developer: Engineer.fromJson(map[TicketFields.developer]),
+      tester: Engineer.fromJson(map[TicketFields.tester]),
       sprintId: map[TicketFields.sprintId] as int,
     );
   }

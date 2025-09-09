@@ -39,6 +39,7 @@ class DatabaseService {
         ${EngineerFields.name} TEXT,
         ${EngineerFields.role} TEXT,
         ${EngineerFields.adminId} INTEGER,
+        ${EngineerFields.isTicketAssigned} INTEGER,
         FOREIGN KEY (${EngineerFields.adminId}) REFERENCES Admin(${EngineerFields.adminId}) ON DELETE CASCADE
       )''');
     await db.execute('''
