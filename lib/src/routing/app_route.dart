@@ -5,4 +5,5 @@ class AppRoute {
   static const manageEngineers = '/manage_engineers';
   static const mainDashboard = '/main_dashboard';
   static const sprintDetail = '/sprint_detail';
+  static const recycle = '/recycle';
 }

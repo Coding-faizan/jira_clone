@@ -22,7 +22,7 @@ class ProfileScreen extends ConsumerWidget {
         ),
         ProfileActionTile(
           title: 'Recycle Bin',
-          onTap: () {},
+          onTap: () => context.push(AppRoute.recycle),
           icon: Icons.delete,
         ),
         ProfileActionTile(

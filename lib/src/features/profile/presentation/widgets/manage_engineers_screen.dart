@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jira_clone/src/common_widgets/confirmation_dialog.dart';
 import 'package:jira_clone/src/features/profile/presentation/widgets/engineer_detail_dialog.dart';
-import 'package:jira_clone/src/features/profile/presentation/providers/engineer_detail_controller.dart';
 import 'package:jira_clone/src/features/profile/presentation/providers/engineers_count_state.dart';
 import 'package:jira_clone/src/features/profile/presentation/providers/get_engineers_provider.dart';
 
@@ -79,10 +78,9 @@ class ManageEngineersScreen extends ConsumerWidget {
                                           onConfirmation: () {
                                             ref
                                                 .read(
-                                                  engineerDetailControllerProvider
-                                                      .notifier,
+                                                  getEngineersProvider.notifier,
                                                 )
-                                                .deleteEngineer(engineer.id!);
+                                                .removeEngineer(engineer);
                                             context.pop();
                                           },
                                         );

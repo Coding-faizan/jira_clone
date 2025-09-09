@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jira_clone/src/features/profile/data/engineer/engineer_repo.dart';
 import 'package:jira_clone/src/features/profile/domain/engineer.dart';
 import 'package:jira_clone/src/features/profile/presentation/providers/get_engineers_provider.dart';
+import 'package:jira_clone/src/features/recycle/presentation/recycle_controller.dart';
 
 class EngineerDetailController extends AsyncNotifier<void> {
   @override
@@ -24,14 +25,16 @@ class EngineerDetailController extends AsyncNotifier<void> {
     ref.invalidate(getEngineersProvider);
   }
 
-  Future<void> deleteEngineer(int engineerId) async {
-    state = const AsyncValue.loading();
-    final engineerRepository = ref.read(engineerRepoProvider);
-    state = await AsyncValue.guard(
-      () => engineerRepository.deleteEngineerProfile(engineerId),
-    );
+  Future<void> deleteEngineer(Engineer engineer) async {
+    // state = const AsyncValue.loading();
+    // final engineerRepository = ref.read(engineerRepoProvider);
+    // state = await AsyncValue.guard(
+    //   () => engineerRepository.deleteEngineerProfile(engineerId),
+    // );
 
-    ref.invalidate(getEngineersProvider);
+    // ref.invalidate(getEngineersProvider);
+    final recycleController = ref.read(recycleControllerProvider.notifier);
+    recycleController.addItem(engineer, engineer.name);
   }
 }
 
