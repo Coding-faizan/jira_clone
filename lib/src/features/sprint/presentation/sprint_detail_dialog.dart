@@ -29,8 +29,10 @@ class _SprintDetailDialogState extends ConsumerState<SprintDetailDialog> {
   final _sprintDetailFormKey = GlobalKey<FormState>();
 
   // These are for values to store
-  late DateTime startDate = DateTime.now();
-  late DateTime endDate;
+  DateTime? startDate;
+  DateTime? endDate;
+  DateTime? initialStartDate;
+  DateTime? initialEndDate;
 
   @override
   void initState() {
@@ -39,6 +41,8 @@ class _SprintDetailDialogState extends ConsumerState<SprintDetailDialog> {
       _nameController.text = widget.sprint!.title;
       startDate = widget.sprint!.startDate;
       endDate = widget.sprint!.endDate;
+      initialStartDate = widget.sprint!.startDate;
+      initialEndDate = widget.sprint!.endDate;
       _startDateController.text = widget.sprint!.startDate.toFormattedString();
       _endDateController.text = widget.sprint!.endDate.toFormattedString();
     }
@@ -67,26 +71,46 @@ class _SprintDetailDialogState extends ConsumerState<SprintDetailDialog> {
             ),
             gapH16,
             DatePickerField(
-              initialDate: isNewSprint ? null : startDate,
+              initialDate: initialStartDate,
               controller: _startDateController,
               onDateSelected: (value) {
-                startDate = value;
+                if (!isNewSprint) {
+                  initialStartDate = null;
+                  if (value == initialEndDate || value == endDate) {
+                    endDate = null;
+                    initialEndDate = null;
+                    _endDateController.text = '';
+                  }
+                }
+                setState(() {
+                  startDate = value;
+                });
               },
               label: 'Start Date',
               firstDate: DateTime.now(),
-              lastDate: DateTime.now().add(Duration(days: 30)),
+              lastDate: endDate ?? DateTime.now().add(Duration(days: 365)),
+              validator: (value) =>
+                  startDate == null ? 'Start date is required' : null,
             ),
             gapH16,
-            DatePickerField(
-              initialDate: isNewSprint ? null : endDate,
-              controller: _endDateController,
-              onDateSelected: (value) {
-                endDate = value;
-              },
-              label: 'End Date',
-              firstDate: startDate.add(Duration(days: 1)),
-              lastDate: DateTime.now().add(Duration(days: 30)),
-            ),
+            if (startDate != null)
+              DatePickerField(
+                initialDate: initialEndDate,
+                controller: _endDateController,
+                onDateSelected: (value) {
+                  if (!isNewSprint) {
+                    initialEndDate = null;
+                  }
+                  endDate = value;
+                },
+                label: 'End Date',
+                firstDate:
+                    startDate?.add(Duration(days: 1)) ??
+                    DateTime.now().add(Duration(days: 365)),
+                lastDate: DateTime.now().add(Duration(days: 365)),
+                validator: (value) =>
+                    endDate == null ? 'End date is required' : null,
+              ),
           ],
         ),
       ),
@@ -100,8 +124,8 @@ class _SprintDetailDialogState extends ConsumerState<SprintDetailDialog> {
                 sprint = Sprint(
                   title: title,
                   isActive: true,
-                  startDate: startDate,
-                  endDate: endDate,
+                  startDate: startDate!,
+                  endDate: endDate!,
                   adminId: ref.read(authStateControllerProvider).asData!.value!,
                 );
               } else {
