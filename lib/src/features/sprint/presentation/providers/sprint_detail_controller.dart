@@ -30,6 +30,16 @@ class SprintDetailController extends AsyncNotifier<void> {
 
     ref.invalidate(getSprintsProvider);
   }
+
+  Future<void> toggleSprintCompletion(Sprint sprint) async {
+    state = AsyncValue.loading();
+    final sprintRepo = ref.read(sprintRepositoryProvider);
+    state = await AsyncValue.guard(() async {
+      sprintRepo.updateSprint(sprint.copyWith(isActive: !sprint.isActive));
+    });
+
+    ref.invalidate(getSprintsProvider);
+  }
 }
 
 final sprintDetailControllerProvider = AsyncNotifierProvider(
